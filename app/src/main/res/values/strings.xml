@@ -2,7 +2,14 @@
     <string name="app_name">GeoQuiz</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
-    <string name="question_text">Canberra is the capital of Australia</string>
     <string name="correct_toast">Correct!</string>
     <string name="incorrect_toast">Incorrect!</string>
+    <string name="next_button">Next</string>
+
+    <string name="question_australia">Canberra is the capital of Australia</string>
+    <string name="question_dead_sea">The dead sea is so dense that you float to the top</string>
+    <string name="question_canada">Some cities in Canada offer public refrigerators to citizens full of beer</string>
+    <string name="question_greenland">Greenland was named after the great green hills that make up the territory</string>
+    <string name="question_japan">In Japan it is considered rude to get food from a vending machine and wander as you eat it</string>
+    <string name="question_montana"> Hannah Montana is originally from Montana</string>
 </resources>
