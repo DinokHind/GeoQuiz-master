@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
 
-        mQuestionTextView = findViewById(R.id.question_text_view);
-        updateQuestion();
+        //mQuestionTextView = findViewById(R.id.question_text_view);
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
+                //mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.length;
                 updateQuestion();
             }
         });
@@ -137,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateQuestion(){
+        Log.d(TAG, "Updating message text", new Exception());
         int questionResourceId = mQuestionBank[mCurrentIndex].getTextResId();
         mQuestionTextView.setText(questionResourceId);
     }
