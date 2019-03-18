@@ -6,6 +6,9 @@
     <string name="incorrect_toast">Incorrect!</string>
     <string name="next_button">Next</string>
 
+    <string name="next_arrow_content">Next question</string>
+    <string name="previous_arrow_content">Previous question</string>
+
     <string name="question_australia">Canberra is the capital of Australia</string>
     <string name="question_dead_sea">The dead sea is so dense that you float to the top</string>
     <string name="question_canada">Some cities in Canada offer public refrigerators to citizens full of beer</string>
