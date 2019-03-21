@@ -44,7 +44,7 @@ public class CheatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
         if (savedInstanceState != null){
-            mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+            mAnswerTextView = findViewById(R.id.answer_text_view);
             mCheated = savedInstanceState.getBoolean(CHEAT_INDEX, false);
             setAnswerShownResult(mCheated);
             mesResId = savedInstanceState.getInt(INT_INDEX);
@@ -53,8 +53,8 @@ public class CheatActivity extends AppCompatActivity {
 
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
-        mShowAnswerButton = (Button) findViewById(R.id.show_answer_button);
-        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+        mShowAnswerButton = findViewById(R.id.show_answer_button);
+        mAnswerTextView = findViewById(R.id.answer_text_view);
 
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override

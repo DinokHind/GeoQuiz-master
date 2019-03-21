@@ -20,11 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int REQUEST_CODE_CHEAT = 0;
 
     public boolean userPressedTrue;
-    private Button mTrueButton;
-    private Button mFalseButton;
-    private Button mCheatButton;
-    private ImageButton mNextButton;
-    private ImageButton mPreviousButton;
     private TextView mQuestionTextView;
 
     private boolean mIsCheater;
@@ -97,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
         mQuestionTextView = findViewById(R.id.question_text_view);
         updateQuestion();
 
-        mTrueButton = (Button) findViewById(R.id.true_button);
-        mFalseButton = (Button) findViewById(R.id.false_button);
-        mNextButton = (ImageButton) findViewById(R.id.next_button);
-        mPreviousButton = (ImageButton) findViewById(R.id.previous_button);
-        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        Button trueButton = findViewById(R.id.true_button);
+        Button falseButton = findViewById(R.id.false_button);
+        ImageButton nextButton = findViewById(R.id.next_button);
+        ImageButton previousButton = findViewById(R.id.previous_button);
+        Button cheatButton = findViewById(R.id.cheat_button);
 
-        mTrueButton.setOnClickListener(new View.OnClickListener(){
+        trueButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 userPressedTrue = true;
@@ -111,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mFalseButton.setOnClickListener(new View.OnClickListener(){
+        falseButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 userPressedTrue = false;
@@ -119,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mNextButton.setOnClickListener(new View.OnClickListener(){
+        nextButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 mIsCheater = false;
@@ -134,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mPreviousButton.setOnClickListener(new View.OnClickListener(){
+        previousButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 mIsCheater = false;
@@ -150,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mCheatButton.setOnClickListener(new View.OnClickListener(){
+        cheatButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 if (mQuestionBank[mCurrentIndex].isCheated()) {
@@ -199,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkAnswer(){
         boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
 
-        int messageResId = 0;
+        int messageResId;
 
         if (mQuestionBank[mCurrentIndex].isCheated()){
             messageResId = R.string.judgement_toast;
