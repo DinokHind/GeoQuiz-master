@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String CHEAT_NUM_INDEX = "cheat_number";
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
     private static final int REQUEST_CODE_CHEAT = 0;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
         savedInstanceState.putInt(KEY_INDEX, mCurrentIndex);
+        savedInstanceState.putInt(CHEAT_NUM_INDEX, mNumCheats);
     }
     @Override
     public void onStop(){
@@ -90,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             for (int i = 0; i < mQuestionBank.length; ++i){
                 mQuestionBank[i].setCheated(savedInstanceState.getBoolean(Integer.toString(i), false));
+                mNumCheats = savedInstanceState.getInt(CHEAT_NUM_INDEX, 0);
             }
         }
 
