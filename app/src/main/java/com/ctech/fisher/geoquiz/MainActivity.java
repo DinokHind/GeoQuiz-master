@@ -13,8 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String CORRECT_NUM_INDEX = "correct";
     private static final String CHEAT_NUM_INDEX = "cheat_number";
+    private static final String CHEATED_NUM_INDEX = "cheated";
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
     private static final int REQUEST_CODE_CHEAT = 0;
@@ -27,12 +28,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Question[] mQuestionBank = new Question[]{
 
-            new Question(R.string.question_australia, true, false),
-            new Question(R.string.question_canada, true, false),
-            new Question(R.string.question_dead_sea, true, false),
-            new Question(R.string.question_greenland, false, false),
-            new Question(R.string.question_japan, true, false),
-            new Question(R.string.question_montana, false, false),
+            new Question(R.string.question_australia, true, false, false),
+            new Question(R.string.question_canada, true, false, false),
+            new Question(R.string.question_dead_sea, true, false, false),
+            new Question(R.string.question_greenland, false, false, false),
+            new Question(R.string.question_japan, true, false, false),
+            new Question(R.string.question_montana, false, false, false),
     };
 
     private int mCurrentIndex = 0;
@@ -55,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState){
         for (int i = 0; i < mQuestionBank.length; ++i){
-            savedInstanceState.putBoolean(Integer.toString(i), mQuestionBank[i].isCheated());
+            savedInstanceState.putBoolean((CHEATED_NUM_INDEX + Integer.toString(i)), mQuestionBank[i].isCheated());
         }
         super.onSaveInstanceState(savedInstanceState);
         Log.i(TAG, "onSaveInstanceState");
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState != null){
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
             for (int i = 0; i < mQuestionBank.length; ++i){
-                mQuestionBank[i].setCheated(savedInstanceState.getBoolean(Integer.toString(i), false));
+                mQuestionBank[i].setCheated(savedInstanceState.getBoolean((CHEATED_NUM_INDEX + Integer.toString(i)), false));
                 mNumCheats = savedInstanceState.getInt(CHEAT_NUM_INDEX, 0);
             }
         }
@@ -196,18 +197,27 @@ public class MainActivity extends AppCompatActivity {
 
         int messageResId;
 
-        if (mQuestionBank[mCurrentIndex].isCheated()){
-            messageResId = R.string.judgement_toast;
+        if (mQuestionBank[mCurrentIndex].isAnsweredCorrect()){
+            Toast toast = Toast.makeText(MainActivity.this, R.string.already_correct_toast, Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.BOTTOM, 0, 0);
+            toast.show();
         } else {
-            if (userPressedTrue == answerIsTrue) {
-                messageResId = R.string.correct_toast;
+            if (mQuestionBank[mCurrentIndex].isCheated()) {
+                messageResId = R.string.judgement_toast;
+                if (userPressedTrue == answerIsTrue) {
+                    mQuestionBank[mCurrentIndex].setAnsweredCorrect(true);
+                }
             } else {
-                messageResId = R.string.incorrect_toast;
+                if (userPressedTrue == answerIsTrue) {
+                    messageResId = R.string.correct_toast;
+                    mQuestionBank[mCurrentIndex].setAnsweredCorrect(true);
+                } else {
+                    messageResId = R.string.incorrect_toast;
+                }
+                Toast toast = Toast.makeText(MainActivity.this, messageResId,Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.TOP, 0,0);
+                toast.show();
             }
         }
-
-        Toast toast = Toast.makeText(MainActivity.this, messageResId,Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.TOP, 0,0);
-        toast.show();
     }
 }

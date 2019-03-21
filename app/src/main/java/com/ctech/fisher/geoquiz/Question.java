@@ -3,6 +3,7 @@ package com.ctech.fisher.geoquiz;
 class Question {
     private int mTextResId;
     private boolean mAnswerTrue;
+    private boolean mAnsweredCorrect;
 
     boolean isCheated() {
         return mCheated;
@@ -18,13 +19,30 @@ class Question {
         return mAnswerTrue;
     }
 
-    Question(int textResId, boolean answerTrue, boolean cheated){
+    public void setTextResId(int textResId) {
+        mTextResId = textResId;
+    }
+
+    Question(int textResId, boolean answerTrue, boolean cheated, boolean answeredCorrect){
         mTextResId = textResId;
         mAnswerTrue = answerTrue;
         mCheated = cheated;
+        mAnsweredCorrect = answeredCorrect;
     }
 
     int getTextResId() {
         return mTextResId;
+    }
+
+    public void setAnswerTrue(boolean answerTrue) {
+        mAnswerTrue = answerTrue;
+    }
+
+    public boolean isAnsweredCorrect() {
+        return mAnsweredCorrect;
+    }
+
+    public void setAnsweredCorrect(boolean answeredCorrect) {
+        mAnsweredCorrect = answeredCorrect;
     }
 }
