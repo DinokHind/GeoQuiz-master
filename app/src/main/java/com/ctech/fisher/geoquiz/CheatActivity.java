@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 public class CheatActivity extends AppCompatActivity {
 
+    private static final String CHEAT_INDEX = "cheat";
     private static final String EXTRA_ANSWER_IS_TRUE = "com.ctech.fisher.geoquiz.answer_is_true";
     private static final String EXTRA_ANSWER_WAS_SHOWN = "com.ctech.fisher.geoquiz.answer_was_shown";
+    private boolean mCheated;
 
     public static Intent newIntent(Context packageContext, boolean answerIsTrue){
         Intent intent = new Intent(packageContext, CheatActivity.class);
@@ -28,10 +30,19 @@ public class CheatActivity extends AppCompatActivity {
     public TextView mAnswerTextView;
     public Button mShowAnswerButton;
 
-
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putBoolean(CHEAT_INDEX, mCheated);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null){
+            mCheated = savedInstanceState.getBoolean(CHEAT_INDEX, false);
+            setAnswerShownResult(mCheated);
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
 
@@ -54,6 +65,7 @@ public class CheatActivity extends AppCompatActivity {
         }
 
        private void setAnswerShownResult(boolean isAnswerShown) {
+            mCheated = isAnswerShown;
             Intent toReturn = new Intent();
             toReturn.putExtra(EXTRA_ANSWER_WAS_SHOWN, isAnswerShown);
             setResult(RESULT_OK, toReturn);

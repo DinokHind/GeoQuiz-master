@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private static final String KEY_INDEX = "index";
-    private static final String CHEAT_INDEX = "cheat";
     private static final int REQUEST_CODE_CHEAT = 0;
 
     public boolean userPressedTrue;
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mQuestionTextView;
 
     private boolean mIsCheater;
+    private int mNumCheats = 0;
 
 
 
@@ -125,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if (mCurrentIndex == mQuestionBank.length-1){
                     mCurrentIndex = 0;
+                    updateQuestion();
                 } else {
                     mCurrentIndex = (mCurrentIndex + 1);
                     updateQuestion();
@@ -151,9 +152,15 @@ public class MainActivity extends AppCompatActivity {
         mCheatButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-                Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
-                startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                if (mNumCheats < 3) {
+                    boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                    Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
+                    startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                }else{
+                    Toast toast = Toast.makeText(MainActivity.this, R.string.max_cheat_toast, Toast.LENGTH_SHORT );
+                    toast.setGravity(Gravity.BOTTOM, 0,0);
+                    toast.show();
+                }
             }
         });
     }
@@ -170,6 +177,7 @@ public class MainActivity extends AppCompatActivity {
             mIsCheater = CheatActivity.wasAnswerShown(data);
             if (mIsCheater){
                 mQuestionBank[mCurrentIndex].setCheated(true);
+                mNumCheats = (mNumCheats + 1);
             }
         }
     }
