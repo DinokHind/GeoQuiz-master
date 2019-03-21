@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mQuestionTextView = findViewById(R.id.question_text_view);
+        updateQuestion();
 
         mTrueButton = (Button) findViewById(R.id.true_button);
         mFalseButton = (Button) findViewById(R.id.false_button);
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             if (data == null){
                 return;
             }
-            mIsCheater = CheatActivity.wasAnwerShown(data);
+            mIsCheater = CheatActivity.wasAnswerShown(data);
         }
         if (mIsCheater){
             mQuestionBank[mCurrentIndex].setCheated(true);

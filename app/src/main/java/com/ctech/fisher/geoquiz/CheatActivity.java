@@ -19,7 +19,7 @@ public class CheatActivity extends AppCompatActivity {
         return intent;
     }
 
-    public static boolean wasAnwerShown(Intent result) {
+    public static boolean wasAnswerShown(Intent result) {
         return result.getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
     }
 
