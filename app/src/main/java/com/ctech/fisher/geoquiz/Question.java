@@ -3,6 +3,15 @@ package com.ctech.fisher.geoquiz;
 public class Question {
     private int mTextResId;
     private boolean mAnswerTrue;
+
+    public boolean isCheated() {
+        return mCheated;
+    }
+
+    public void setCheated(boolean cheated) {
+        mCheated = cheated;
+    }
+
     private boolean mCheated;
 
     public boolean isAnswerTrue() {
@@ -27,11 +36,4 @@ public class Question {
         mTextResId = textResId;
     }
 
-    public boolean isCheated() {
-        return mCheated;
-    }
-
-    public void setCheated(boolean cheated) {
-        mCheated = cheated;
-    }
 }
