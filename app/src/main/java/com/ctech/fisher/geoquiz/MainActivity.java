@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean mIsCheater;
     private int mNumCheats = 0;
 
-
-
     private Question[] mQuestionBank = new Question[]{
 
             new Question(R.string.question_australia, true, false),
@@ -155,14 +153,21 @@ public class MainActivity extends AppCompatActivity {
         mCheatButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                if (mNumCheats < 3) {
-                    boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
-                    Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
-                    startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                if (mQuestionBank[mCurrentIndex].isCheated()) {
+                        Toast toast = Toast.makeText(MainActivity.this, R.string.already_cheated_toast, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM, 0, 0);
+                        toast.show();
+
                 }else{
-                    Toast toast = Toast.makeText(MainActivity.this, R.string.max_cheat_toast, Toast.LENGTH_SHORT );
-                    toast.setGravity(Gravity.BOTTOM, 0,0);
-                    toast.show();
+                    if (mNumCheats < 3) {
+                        boolean answerIsTrue = mQuestionBank[mCurrentIndex].isAnswerTrue();
+                        Intent intent = CheatActivity.newIntent(MainActivity.this, answerIsTrue);
+                        startActivityForResult(intent, REQUEST_CODE_CHEAT);
+                    } else {
+                        Toast toast = Toast.makeText(MainActivity.this, R.string.max_cheat_toast, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.BOTTOM, 0, 0);
+                        toast.show();
+                    }
                 }
             }
         });

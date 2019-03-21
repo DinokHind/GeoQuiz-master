@@ -11,6 +11,7 @@ import android.widget.TextView;
 public class CheatActivity extends AppCompatActivity {
 
     private static final String CHEAT_INDEX = "cheat";
+    private static final String INT_INDEX = "int";
     private static final String EXTRA_ANSWER_IS_TRUE = "com.ctech.fisher.geoquiz.answer_is_true";
     private static final String EXTRA_ANSWER_WAS_SHOWN = "com.ctech.fisher.geoquiz.answer_was_shown";
     private boolean mCheated;
@@ -27,6 +28,7 @@ public class CheatActivity extends AppCompatActivity {
 
     public boolean mAnswerIsTrue;
 
+    public int mesResId = R.string.warning_text;
     public TextView mAnswerTextView;
     public Button mShowAnswerButton;
 
@@ -34,31 +36,35 @@ public class CheatActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState){
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putBoolean(CHEAT_INDEX, mCheated);
+        savedInstanceState.putInt(INT_INDEX, mesResId);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (savedInstanceState != null){
-            mCheated = savedInstanceState.getBoolean(CHEAT_INDEX, false);
-            setAnswerShownResult(mCheated);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cheat);
+        if (savedInstanceState != null){
+            mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
+            mCheated = savedInstanceState.getBoolean(CHEAT_INDEX, false);
+            setAnswerShownResult(mCheated);
+            mesResId = savedInstanceState.getInt(INT_INDEX);
+            mAnswerTextView.setText(mesResId);
+        }
 
         mAnswerIsTrue = getIntent().getBooleanExtra(EXTRA_ANSWER_IS_TRUE, false);
 
-        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
         mShowAnswerButton = (Button) findViewById(R.id.show_answer_button);
+        mAnswerTextView = (TextView) findViewById(R.id.answer_text_view);
 
         mShowAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mAnswerIsTrue) {
-                    mAnswerTextView.setText(R.string.true_button);
+                    mesResId = R.string.true_button;
                 } else {
-                    mAnswerTextView.setText(R.string.false_button);
+                    mesResId = R.string.false_button;
                 }
+                mAnswerTextView.setText(mesResId);
                 setAnswerShownResult(true);
             }
         });
